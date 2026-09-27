@@ -1,0 +1,1 @@
+export default function Loading(){return <main className="container routeHero"><p className="eyebrow">LUXOR PHARAOH DAY</p><h1><span>جارٍ التحميل</span><small>Loading</small></h1><div className="card">⟡</div></main>}

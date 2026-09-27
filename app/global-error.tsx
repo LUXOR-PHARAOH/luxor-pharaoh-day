@@ -1,0 +1,2 @@
+'use client';
+export default function GlobalError({reset}:{error:Error&{digest?:string};reset:()=>void}){return <html lang="ar" dir="rtl"><body style={{margin:0,fontFamily:'system-ui',background:'#071018',color:'#f6f0e5'}}><main style={{maxWidth:900,margin:'0 auto',padding:'64px 24px'}}><h1>حصل خطأ في النظام · A system error occurred</h1><button onClick={()=>reset()} style={{padding:'12px 16px'}}>إعادة المحاولة · Try again</button></main></body></html>}
