@@ -1,32 +1,20 @@
 # LUXOR PHARAOH DAY 🏺👑
 
-**يومك الفرعوني في الأقصر · Your Pharaoh Day in Luxor**
+**أبرز تجربة اليوم الفرعوني في الأقصر**
 
-Independent bilingual digital visitor information & local concierge platform.
+**اعرف • اتأكد • اتحرك / KNOW • CHECK • GO**
 
-## Product path
+منصة رقمية مستقلة ثنائية اللغة لمعلومات زائر الأقصر، مبنية للسرعة على الهاتف، وتركّز على المصدر، تاريخ المراجعة، وحالة المعلومة قبل اتخاذ القرار.
 
-**KNOW → CHECK → GO**
+## الإنتاج الفعلي
 
-- **KNOW / اعرف:** discover options by time, interest and budget.
-- **CHECK / اتأكد:** see source, update state and verification status before choosing.
-- **GO / اتحرك:** follow practical next steps, transport guidance and contact paths.
+المسار المعتمد:
 
-## Production architecture
+`GitHub → Node 24.21.0 → npm 11.19.0 → package-lock.json → npm ci → Preflight → Build → Vercel → Production QA`
 
-The repository is designed for:
+لا يوجد `package-lock.json` اصطناعي داخل الحزمة. يجب أن يُنشأ بواسطة npm 11.19.0 على Node 24.21.0 ثم يُحفظ في جذر المستودع.
 
-`GitHub → Node 24 → npm 11+ → package-lock.json → npm ci → Preflight → Build → Vercel → Production QA`
-
-## Important lockfile rule
-
-Do **not** create a fake or hand-written `package-lock.json`.
-
-Run the GitHub Actions workflow **Bootstrap real package-lock.json**. It generates the lockfile with Node 24/npm 11+, validates the root contract, executes `npm ci`, runs preflight, and runs the production build. The resulting `package-lock.json` is uploaded as an artifact and should then be committed to `main`.
-
-Once committed, `Production CI` requires that lockfile and uses `npm ci` only.
-
-## Local commands
+## أوامر التشغيل
 
 ```bash
 npm ci
@@ -36,14 +24,22 @@ npm run build
 npm start
 ```
 
-## Production status
+## البيانات
 
-**Production Candidate / Verification Required**
+الأسعار وساعات الزيارة الحالية في `lib/data.ts` مرتبطة بصفحات منشورة على موقع وزارة السياحة والآثار المصرية، وتحتوي على تاريخ مراجعة ورابط المصدر. المعلومات قابلة للتغيير ولا تُعامل كضمان دائم.
 
-This source package must not be labeled Production-Verified until GitHub Actions and Vercel Production QA succeed against the real repository deployment.
+## الحالة
 
-## Trust rules
+**Production Candidate — verification required**
 
-The UI must not claim government affiliation, official pricing, provider licensing, verified-provider status, or confirmed payments without current documented evidence.
+لا تتحول الحالة إلى Production-Verified إلا بعد نجاح CI وVercel وQA على نفس الـcommit.
 
-Commercial booking, transport brokerage, and payment capabilities remain separate activation gates requiring operational, security, and legal review.
+## الملفات المرجعية
+
+- `docs/TECHNICAL-MASTER-REPORT.md`
+- `docs/DATA-VERIFICATION-REPORT.md`
+- `docs/DEPLOYMENT-RUNBOOK.md`
+- `docs/QA-REPORT.md`
+- `docs/SECURITY-CONTROL-REPORT.md`
+- `docs/LOCKFILE-BOOTSTRAP-REPORT.md`
+- `RELEASE-CHECKLIST.md`
