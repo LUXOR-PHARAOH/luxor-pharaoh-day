@@ -1,0 +1,12 @@
+{
+  "name": "LUXOR PHARAOH DAY",
+  "short_name": "Pharaoh Day",
+  "description": "Your Pharaoh Day in Luxor",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071018",
+  "theme_color": "#071018",
+  "icons": []
+}
