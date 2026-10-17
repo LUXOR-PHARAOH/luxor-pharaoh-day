@@ -1,45 +1,79 @@
- # LUXOR PHARAOH DAY 🏺👑
+# LUXOR PHARAOH DAY 🏺👑 v5.3.1
 
-**أبرز تجربة اليوم الفرعوني في الأقصر**
+**A Day in Luxor with the Pharaohs** — Independent bilingual visitor information and local planning platform.
 
-**اعرف • اتأكد • اتحرك / KNOW • CHECK • GO**
+[![Node.js CI](https://github.com/youssfalaa296-hash/luxor-pharaoh-day-9831bee9/actions/workflows/node.js.yml/badge.svg)](https://github.com/youssfalaa296-hash/luxor-pharaoh-day-9831bee9/actions/workflows/node.js.yml)
 
-منصة رقمية مستقلة ثنائية اللغة لمعلومات زائر الأقصر، مبنية للسرعة على الهاتف، وتركّز على المصدر، تاريخ المراجعة، وحالة المعلومة قبل اتخاذ القرار.
+## Product path
+KNOW → CHECK → GO → ADAPT → GET HELP / اعرف → اتأكد → اتحرك → اتصرف → اطلب المساعدة
 
-## الإنتاج الفعلي
+## Current release gate
+**RELEASE_STATUS: READY_FOR_RELEASE**
 
-المسار المعتمد:
+Automated source, security, build, deployment, HTTP route, SEO, PWA, and runtime checks have passed. The release is intentionally not marked VERIFIED until final real-browser visual and interaction QA is completed.
 
-`GitHub → Node 24.21.0 → npm 11.19.0 → package-lock.json → npm ci → Preflight → Build → Vercel → Production QA`
+## Production
+Vercel project: luxor-pharaoh-day-q3rd
 
-لا يوجد `package-lock.json` اصطناعي داخل الحزمة. يجب أن يُنشأ بواسطة npm 11.19.0 على Node 24.21.0 ثم يُحفظ في جذر المستودع.
+Production URL: https://luxor-pharaoh-day-q3rd.vercel.app
 
-## أوامر التشغيل
+Current production deployment: dpl_3LWvAS16VJBU3fbkKirJ8yc4pyoF — READY.
 
-```bash
-npm ci
-npm run preflight
-npm run verify
-npm run build
-npm start
-```
+## Trust rules
+- No invented prices, contacts, operating hours, provider status, licenses, or government affiliation.
+- Confirmed data carries a source, review date, and verification status.
+- Estimates are explicitly labeled.
+- User reports never overwrite production data automatically.
+- Booking/payment/commercial claims remain disabled until real operational and legal readiness exists.
 
-## البيانات
+## Runtime
+Node.js 24.21.0 · npm 11.19.0 · Next.js 16.4.0 · React 19.2.0 · ESLint 10.12.0
 
-الأسعار وساعات الزيارة الحالية في `lib/data.ts` مرتبطة بصفحات منشورة على موقع وزارة السياحة والآثار المصرية، وتحتوي على تاريخ مراجعة ورابط المصدر. المعلومات قابلة للتغيير ولا تُعامل كضمان دائم.
+## Quality gate
+npm ci → npm run preflight → TypeScript → ESLint → production build → Vercel → HTTP/SEO/PWA/runtime QA → browser QA → VERIFIED
 
-## الحالة
+## Production QA
+Checked successfully:
+- / 
+- /experiences
+- /price-check
+- /what-can-i-do-now
+- /transport
+- /before-you-buy
+- /plan
+- /help
+- /trust
+- /report-issue
+- /faq
+- /privacy
+- /terms
+- /advanced
+- /contact
+- /visitor-center
+- /vib
+- /soundtrack
+- /visitor-guide
+- /emergency
+- /robots.txt
+- /sitemap.xml
+- /manifest.webmanifest
+- /icon.svg
+- intentional 404 route
 
-**Production Candidate — verification required**
+## Growth foundation
+- Dynamic Open Graph social image.
+- Canonical metadata and structured WebSite data.
+- Production-only indexing policy.
+- Mobile-first bilingual visitor path.
+- Interactive “What Can I Do Now?” planner.
+- Local plan persistence without mandatory signup.
+- Optional original ambient sound layer that starts only after user action.
+- VIB Desk / Very Important Visitor: differentiated concierge-style request paths, recovery, family, accessibility, photo, evening and daily-needs guidance.
+- Immersive CSS atmosphere layer with reduced-motion support and a dedicated soundtrack guide; no commercial recordings bundled.
+- Visitor Center now acts as the single entry point for visitor needs.
 
-لا تتحول الحالة إلى Production-Verified إلا بعد نجاح CI وVercel وQA على نفس الـcommit.
+## Compliance boundary
+This is an independent digital visitor information and planning platform. It does not claim government affiliation, licensed-provider status, guaranteed pricing, booking, or payment processing without documented operational readiness.
 
-## الملفات المرجعية
-
-- `docs/TECHNICAL-MASTER-REPORT.md`
-- `docs/DATA-VERIFICATION-REPORT.md`
-- `docs/DEPLOYMENT-RUNBOOK.md`
-- `docs/QA-REPORT.md`
-- `docs/SECURITY-CONTROL-REPORT.md`
-- `docs/LOCKFILE-BOOTSTRAP-REPORT.md`
-- `RELEASE-CHECKLIST.md`
+## Final gate
+Before VERIFIED, test the deployed URL on real Android Chrome and desktop Chrome for visual layout, touch targets, planner interactions, local save/clear, soundtrack control, reduced motion, console errors, and Arabic/English presentation. No release label is upgraded without evidence.

@@ -1,0 +1,1 @@
+import type {MetadataRoute} from 'next'; export default function manifest():MetadataRoute.Manifest{return {name:'LUXOR PHARAOH DAY',short_name:'Pharaoh Day',description:'A Day in Luxor with the Pharaohs',start_url:'/',display:'standalone',background_color:'#11100d',theme_color:'#11100d',lang:'ar',dir:'rtl',icons:[{src:'/icon.svg',sizes:'any',type:'image/svg+xml'}]}}

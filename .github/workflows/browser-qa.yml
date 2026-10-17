@@ -1,0 +1,81 @@
+name: LUXOR PHARAOH DAY — Browser QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: browser-qa-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  browser-qa:
+    name: Chromium browser QA
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.21.0
+          cache: npm
+
+      - name: Pin npm 11.19.0
+        run: npm install --global npm@11.19.0
+
+      - name: Verify runtime
+        run: |
+          set -euo pipefail
+          test "$(node --version)" = "v24.21.0"
+          test "$(npm --version)" = "11.19.0"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx --yes playwright@1.63.0 install --with-deps chromium
+
+      - name: Production build
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee /tmp/luxor-build.log
+
+      - name: Start production server
+        run: |
+          set -euo pipefail
+          npm run start -- --hostname 127.0.0.1 --port 3000 > /tmp/luxor-next.log 2>&1 &
+          echo $! > /tmp/luxor-next.pid
+          for i in {1..60}; do
+            if curl --fail --silent --show-error http://127.0.0.1:3000/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Production server failed to become ready."
+          cat /tmp/luxor-next.log
+          exit 1
+
+      - name: Run browser QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+          CI: true
+        run: npx --yes playwright@1.63.0 test --reporter=line --timeout=15000 --global-timeout=300000
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-qa-evidence-${{ github.sha }}
+          path: |
+            playwright-report/
+            test-results/
+            /tmp/luxor-build.log
+            /tmp/luxor-next.log
+          if-no-files-found: ignore

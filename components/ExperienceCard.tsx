@@ -1,0 +1,2 @@
+import Link from 'next/link'; import TrustBadge from './TrustBadge';
+export default function ExperienceCard({title,ar,desc,href='/experiences',status='VERIFIED'}:{title:string;ar:string;desc:string;href?:string;status?:'VERIFIED'|'ESTIMATED'|'NEEDS_REVIEW'}){return <article className="card"><TrustBadge status={status}/><h3>{ar}<br/><span>{title}</span></h3><p>{desc}</p><Link className="btn alt" href={href}>افتح / Open →</Link></article>}

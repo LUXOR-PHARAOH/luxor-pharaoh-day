@@ -1,0 +1,1 @@
+import sites from '@/data/official-sites.json'; import type {Site} from './types'; export const officialSites=sites as Site[]; export const getSite=(id:string)=>officialSites.find(s=>s.id===id);
