@@ -1,10 +1,10 @@
 {
   "name": "luxor-pharaoh-day",
-  "version": "5.2.1",
+  "version": "5.3.1",
   "private": true,
   "packageManager": "npm@11.19.0",
   "engines": {
-    "node": "24.21.0",
+    "node": "24.x",
     "npm": ">=11 <12"
   },
   "scripts": {
@@ -15,21 +15,24 @@
     "typecheck": "tsc --noEmit",
     "verify:project": "node scripts/verify-project.mjs",
     "verify:lockfile": "node scripts/verify-lockfile.mjs",
-    "verify": "npm run verify:project && npm run verify:lockfile",
-    "preflight": "node scripts/check-runtime.mjs && npm run verify:project && npm run lint && npm run typecheck"
+    "verify": "npm run verify:project && npm run verify:lockfile && npm run verify:freshness && npm run lint && npm run typecheck",
+    "preflight": "npm run verify",
+    "verify:freshness": "node scripts/check-freshness.mjs"
   },
   "dependencies": {
-    "next": "16.3.6",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
+    "next": "16.4.2",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
+    "@playwright/test": "1.63.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "eslint": "^9.0.0",
-    "eslint-config-next": "16.3.6",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.2",
     "typescript": "^5.9.0"
   }
 }

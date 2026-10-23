@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title desc">
+<title>LUXOR PHARAOH DAY</title><desc>Modern pharaonic mark combining a crown, Eye of Horus and Nile-inspired base.</desc>
+<defs>
+ <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c66a"/><stop offset=".5" stop-color="#fff1b0"/><stop offset="1" stop-color="#a9792f"/></linearGradient>
+ <linearGradient id="n" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1a5264"/><stop offset="1" stop-color="#0c2f40"/></linearGradient>
+</defs>
+<circle cx="400" cy="400" r="360" fill="#101820" stroke="url(#g)" stroke-width="18"/>
+<path d="M170 260 L230 120 L310 215 L400 95 L490 215 L570 120 L630 260 L585 315 L215 315 Z" fill="url(#g)" stroke="#6e4c1e" stroke-width="10"/>
+<path d="M180 365 Q400 205 620 365 Q400 520 180 365Z" fill="#efe0a1" stroke="url(#g)" stroke-width="12"/>
+<path d="M250 365 Q400 300 550 365 Q400 430 250 365Z" fill="#101820"/>
+<circle cx="400" cy="365" r="28" fill="url(#g)"/>
+<path d="M205 365 Q260 470 400 500 Q540 470 595 365" fill="none" stroke="url(#g)" stroke-width="18" stroke-linecap="round"/>
+<path d="M245 530 Q400 570 555 530 L520 625 Q400 680 280 625Z" fill="url(#n)" stroke="url(#g)" stroke-width="10"/>
+<path d="M300 600 Q400 570 500 600" fill="none" stroke="#8ed7e7" stroke-width="8" stroke-linecap="round"/>
+<text x="400" y="735" text-anchor="middle" fill="#f7e8b0" font-family="Arial, sans-serif" font-size="44" font-weight="700" letter-spacing="6">LUXOR</text>
+</svg>

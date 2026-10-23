@@ -1,0 +1,43 @@
+name: LUXOR PHARAOH DAY — Data Freshness
+
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-freshness
+  cancel-in-progress: true
+
+jobs:
+  freshness:
+    name: Official data freshness
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js 24.21.0
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24.21.0
+          cache: npm
+
+      - name: Pin npm 11.19.0
+        run: npm install --global npm@11.19.0
+
+      - name: Verify runtime
+        run: |
+          set -euo pipefail
+          test "$(node --version)" = "v24.21.0"
+          test "$(npm --version)" = "11.19.0"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check official data freshness
+        run: node scripts/check-freshness.mjs

@@ -1,0 +1,93 @@
+name: Security remediation — audit branch only
+
+on:
+  push:
+    branches:
+      - audit/production-isolation-2026-10-23
+    paths:
+      - '.github/workflows/security-remediation-branch.yml'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: security-remediation-audit-branch
+  cancel-in-progress: false
+
+jobs:
+  remediate-and-verify:
+    if: github.ref == 'refs/heads/audit/production-isolation-2026-10-23'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+        with:
+          ref: audit/production-isolation-2026-10-23
+          persist-credentials: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.21.0
+          cache: npm
+
+      - name: Pin npm
+        run: npm install --global npm@11.19.0
+
+      - name: Verify runtime
+        run: |
+          set -euo pipefail
+          test "$(node --version)" = "v24.21.0"
+          test "$(npm --version)" = "11.19.0"
+
+      - name: Install patched stable framework and supported ESLint
+        run: |
+          set -euo pipefail
+          npm ci
+          npm install --save-exact next@16.4.2 eslint-config-next@16.4.2 eslint@9.39.5
+          npm audit fix || echo "Non-breaking audit remediation could not fix every advisory; strict production and critical audits remain authoritative."
+
+      - name: Commit regenerated dependency lockfile on audit branch
+        run: |
+          set -euo pipefail
+          if ! git diff --quiet -- package.json package-lock.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package.json package-lock.json
+            git commit -m "fix(security): patch framework and align ESLint peer dependencies"
+            git push origin HEAD:audit/production-isolation-2026-10-23
+          fi
+
+      - name: Verify project and lockfile
+        run: |
+          npm ci
+          npm run verify:project
+          npm run verify:lockfile
+
+      - name: Blocking production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Block critical vulnerabilities across all dependencies
+        run: npm audit --audit-level=critical
+
+      - name: Document unpatched development-tool advisory
+        run: |
+          echo "GitHub Advisory GHSA-vfj7-8cjw-p6xm flags braces <= 3.0.3, transitively used by development ESLint tooling."
+          echo "The advisory lists no patched version. The full audit is therefore not clean at HIGH severity; this workflow does not claim otherwise."
+          echo "Production dependencies must pass the blocking audit, and the full tree must contain no CRITICAL findings."
+
+      - name: Freshness policy
+        run: npm run verify:freshness
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: TypeScript
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build
